@@ -1,3 +1,4 @@
+import base64
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
@@ -33,6 +34,34 @@ st.markdown("""
     }
     </style>
     """, unsafe_allow_html=True)
+
+
+### ------------- CONFIGURAÇÃO BACKGROUND ------------- ###
+@st.cache_data
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
+    page_bg_img = '''
+    <style>
+    section {
+    background-image: url("data:image/png;base64,%s");
+    background-size: cover;
+    }
+    header {
+        background: none !important;
+    }
+    </style>
+    ''' % bin_str
+    
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+    return
+
+set_png_as_page_bg('bg.jpg')
+### ------------- FIM CONFIGURAÇÃO BACKGROUND ------------- ###
 
 # Função para carregar os dados com cache
 @st.cache_data(ttl=600)  # Cache por 10 minutos (600 segundos)
@@ -96,6 +125,15 @@ if st.sidebar.button("Forçar Atualização"):
     st.cache_data.clear()
     st.rerun()
 
+
+### ------------ CABEÇALHO ------------- ###
+col1, col2, col3 = st.columns((1, 2, 4))
+with col1:
+    st.image('logotipo-02.png', width=200)
+with col2:
+    st.image('logos.png', width=300)
+with col3:
+    st.markdown("## CONAJE - Feirão do Imposto 2024")    
 
 ### ------------- PAGINA ------------- ###
 if st.session_state["pagina"] == "Dashboard":

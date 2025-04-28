@@ -7,7 +7,7 @@ def show_ranking(df):
     dados = df.copy()
     
     st.title("Ranking")
-    st.write("Aqui você pode ver o ranking dos movimentos para cada categoria.")
+    st.write("Aqui você pode ver uma prévia do ranking dos movimentos para cada categoria.")
     st.markdown("---")
 
     # Criar 2 colunas

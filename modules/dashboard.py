@@ -20,9 +20,6 @@ def show_dashboard(df):
         "Quantidade de Curtidas": int(df["Quantidade_de_Likes_nos_Posts"].sum())
     }
 
-    # Cabeçalho
-    st.markdown("## CONAJE - Feirão do Imposto 2024")
-
     col1, col2, col3 = st.columns(3)
     col4, col5, col6, col7 = st.columns(4)
 
